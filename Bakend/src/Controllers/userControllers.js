@@ -15,7 +15,7 @@ export const userRegister = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        return (res.status(500).json(error))
     }
 }
 
@@ -24,7 +24,7 @@ export const Listar = async (req, res) => {
         const user = await usersModels.find();
         return (res.status(200).json(user))
     } catch (error) {
-        console.log(error)
+        return (res.status(500).json(error))
     }
 
 }
@@ -41,7 +41,7 @@ export const update = async (req, res) => {
         }
         return (res.status(401).json({ message: "usuario no se actualizo correctamente" }))
     } catch (error) {
-        console.log(error)
+        return (res.status(500).json(error))
     }
 }
 export const eliminar = async (req, res) => {
@@ -53,7 +53,7 @@ export const eliminar = async (req, res) => {
         }
         return (res.status(401).json({ message: "usuario no se elimino correctamente" }))
     } catch (error) {
-        console.log(error)
+        return (res.status(500).json(error))
     }
 }
 export const listarId = async (req, res) => {
@@ -64,7 +64,7 @@ export const listarId = async (req, res) => {
         }
         return (res.status(401).json({ message: "usuario no existe" }))
     } catch (error) {
-        console.log(error)
+        return (res.status(500).json(error))
     }
 }
 // para que sirve la funcion findByid

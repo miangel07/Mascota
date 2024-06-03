@@ -1,12 +1,14 @@
 import express, { json } from "express";
 import bodyParser from "body-parser"
 import conexion from "./src/database/conexion.js";
-import userRouter from "./src/Routers/userRouters.js";
+import router from "./src/Routers/index.js";
+
 const servidor = express()
 servidor.use(json())
 servidor.use(bodyParser.urlencoded({extended: true}))
 conexion()
-servidor.use("/usuario",userRouter)
+
+servidor.use("/api",router)
 
 
 servidor.listen(3000,()=>{
