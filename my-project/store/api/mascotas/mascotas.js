@@ -42,7 +42,23 @@ export const mascotasApi = createApi({
                 },
             }),
         }),
+        // elimina una mascota
+        deletePest: build.mutation({
+            query: (id) => ({
+                url: `pets/eliminar/${id}`,
+                method: 'DELETE',
+            
+                headers: {
+                    "Authorization": `Bearer ${getCookie("authToken")}`,
+                },
+            }),
+           
+            transformResponse(baseQueryReturnValue) {
+              
+                setCookie("authToken", baseQueryReturnValue.token, 30);
+            }
+        }),
     }),
 });
 
-export const { usePestCreateMutation, useGetPestsQuery } = mascotasApi;
+export const { usePestCreateMutation, useGetPestsQuery,useDeletePestMutation} = mascotasApi;

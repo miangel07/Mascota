@@ -8,7 +8,7 @@ import cors from "cors";
 const servidor = express()
 servidor.use(json())
 servidor.use(bodyParser.urlencoded({extended: true}))
-
+servidor.use(express.static('./public'))
 conexion()
 servidor.use(cors())
 servidor.use("/api",router)
