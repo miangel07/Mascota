@@ -1,14 +1,17 @@
 import usersModels from "../models/user.js";
+import bcryptjs from 'bcryptjs';
+
 // exportamos userModels del modelo 
 
 export const userRegister = async (req, res) => {
     try {
         // user pasa hacer un objeto de usermodels 
+        const hashedPassword = await bcryptjs.hash(req.body.password, 10);
         const user = new usersModels({
             //fullname lo traemos del body y pasa al modelo donde se va guardar
             fullname: req.body.fullname,
             email: req.body.email,
-            password: req.body.password
+            password: hashedPassword
         })
         await user.save();
         return (res.status(201).json({ menssage: "usuario creado correctamente", user }))

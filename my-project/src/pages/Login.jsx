@@ -1,14 +1,70 @@
 import React from 'react'
+import { useEffect,useState } from 'react'
+import { useLoginUserMutation } from '../../store/conexion/index.js'
+import { getCookie } from '../utils/index.js'
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom'
+
 
 
 const Login = () => {
+  const [autenticado, setautenticado] = useState(false);
+  const [loginUser, { isSuccess }] = useLoginUserMutation();
+  const navigation = useNavigate();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    loginUser(data);
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      console.log("User has logged in, successfully");
+    navigation("/admin")
+
+    }
+    if (getCookie("authToken")) {
+      setautenticado(true);
+    }
+ 
+  }, [isSuccess]);
+ 
+ 
   return (
     <>
       <div className='h-screen w-100 flex justify-center items-center'>
         <div className="bg-[url('../../public/bg-login.svg')] h-[785px] w-[400px] relative flex justify-center items-center ">
-            <input type="text" className='absolute rounded-3xl flex w-80 bottom-44 h-10 pl-4 bg-[#cbd5e1] ' placeholder='correo Electronico' />
-            <input type="text" className='absolute rounded-3xl flex w-80 bottom-28 h-10 pl-4 bg-[#cbd5e1] ' placeholder='contraseña' />
-            <button className='bg-blue-800 bottom-12 absolute rounded-3xl flex w-80 h-8 text-gray-50 text-center justify-center'>ingresar</button>
+       
+             <form onSubmit={handleSubmit(onSubmit)} className='justify-center flex items-center' >
+             <input type="text" className='absolute rounded-3xl flex w-80 bottom-44 h-10 pl-4 bg-[#cbd5e1] ' placeholder='correo Electronico'
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Por favor digitar cédula",
+                },
+              })} />
+                  <span className="text-amber-700">
+              {errors.id?.message && errors.id.message}
+            </span>
+               <input type="text" className='absolute rounded-3xl flex w-80 bottom-28 h-10 pl-4 bg-[#cbd5e1] ' placeholder='contraseña'
+               {...register("password", {
+                required: {
+                  value: true,
+                  message: "Por favor digitar password",
+                },
+              })} />
+               <span className="text-amber-700">
+              {errors.password?.message && errors.password.message}
+            </span>
+               <button type='submit' className='bg-blue-800 bottom-12 absolute rounded-3xl flex w-80 h-8 text-gray-50 text-center justify-center'>ingresar</button>
+             </form>
+       
+
+       
+            
         </div>
 
       </div>
