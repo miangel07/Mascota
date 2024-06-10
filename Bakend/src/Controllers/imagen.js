@@ -2,12 +2,13 @@ import multer from "multer";
 
 // aqui usamos multer y le damos la ubicacion donde se va a logar la imagen 
 const storage = multer.diskStorage({
-  destination:function (res, images, cb) {
+  destination:function (res, file, cb) {
     cb(null, "public/img");
   },
   // aqui le damos el nombre de la imagen que se va a guardar en la carpeta public/img
-  filename: function (res, images, cb) {
-    cb(null, images.originalname);
+  filename: function (res, file, cb) {
+    console.log(file)
+    cb(null, file.originalname);
   },
 });
 // se establece en el objeto storage que creaste previamente usando multer.diskStorage().

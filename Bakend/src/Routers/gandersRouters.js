@@ -5,7 +5,7 @@ const gandersRouter = Router();
 
 gandersRouter.get("/listar", Listar);
 
-gandersRouter.post("/crear", crear);
+gandersRouter.post("/registrar", crear);
 
 gandersRouter.put("/actualizar/:id", actualizar);
 

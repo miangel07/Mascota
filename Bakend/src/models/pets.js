@@ -6,14 +6,14 @@ const pets = new mongoose.Schema({
         type: String,
         required: true
     },
-    race_id:{
+    races:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'races',
         required:true
     },
-    categorira: {
+    category: {
         type:mongoose.Schema.Types.ObjectId,
-        ref: "categoria",
+        ref: "category",
         required: true
     },
     genders: {

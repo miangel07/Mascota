@@ -24,7 +24,7 @@ const user = new mongoose.Schema({
        
     },
 })
-const usersModels= mongoose.model('user',user)
+const usersModels= mongoose.model('users',user)
 // se importa los modelos y se le pone el nombre al modelo que en este caso es user que usa el objeto user que se creo 
 export default usersModels
 

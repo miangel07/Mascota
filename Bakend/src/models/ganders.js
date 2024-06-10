@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 
-const ganders = new mongoose.Schema({
+const genders = new mongoose.Schema({
     name: {
         type: String,
         required: true,
         maxlength:20
     }
 })
-const gandersModels= mongoose.model('ganders',ganders)
+const gandersModels= mongoose.model('genders',genders)
 export default gandersModels

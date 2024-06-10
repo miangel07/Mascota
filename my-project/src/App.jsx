@@ -1,9 +1,10 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
-import Admin from './pages/AdministrarMascota'
+import Admin from './pages/AdministrarMascota.jsx'
 import AgregarMascota from './components/AgregarMascota'
-import Consultar from './components/Consultar'
+import Editar from './pages/Editar.jsx'
+import EdiatrMascotaPages from './pages/EditarMascotaPages.jsx'
 
 import './App.css'
 
@@ -16,7 +17,8 @@ function App() {
     <Route path="/" element={<Login/>} />
     <Route path="/admin" element={<Admin/>} />
     <Route path="/agregarMascota" element={<AgregarMascota/>} />
-    <Route path="/ver" element={<Consultar/>} />
+    <Route path="/ver/:id" element={<Editar/>} />
+    <Route path="/actualizar/:id" element={<EdiatrMascotaPages/>} />
     </Routes>    
     </>
   )
