@@ -1,17 +1,18 @@
 import { Listar,actualizar,crear,eliminar,listarId } from "../Controllers/gandersControllers.js";
 import { Router } from "express";
+import { validarToken } from "../Controllers/loginControllers.js";
 
 const gandersRouter = Router();
 
-gandersRouter.get("/listar", Listar);
+gandersRouter.get("/listar",validarToken, Listar);
 
-gandersRouter.post("/registrar", crear);
+gandersRouter.post("/registrar",validarToken, crear);
 
-gandersRouter.put("/actualizar/:id", actualizar);
+gandersRouter.put("/actualizar/:id",validarToken, actualizar);
 
-gandersRouter.get("/listar/:id", listarId);
+gandersRouter.get("/listar/:id",validarToken, listarId);
 
-gandersRouter.delete("/eliminar/:id", eliminar);
+gandersRouter.delete("/eliminar/:id", validarToken,eliminar);
 
 export default gandersRouter;
 

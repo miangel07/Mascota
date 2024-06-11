@@ -14,7 +14,7 @@ export const categoria = createApi({
                 url: `categoria/listar`,
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${getCookie("authToken")}`,
+                    token: `${getCookie("authToken")}`,
                   },
             }),
         }),

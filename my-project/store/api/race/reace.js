@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getCookie } from "../../../src/utils";
 export const race = createApi({
     reducerPath: "raza",
     baseQuery: fetchBaseQuery({
@@ -12,6 +13,9 @@ export const race = createApi({
             query: () => ({
                 url: `raza/listar`,
                 method: "GET",
+                headers: {
+                    token: `${getCookie("authToken")}`,
+                  },
             }),
         }),
     }),

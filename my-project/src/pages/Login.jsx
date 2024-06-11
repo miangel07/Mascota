@@ -1,14 +1,11 @@
-import React from 'react'
-import { useEffect,useState } from 'react'
-import { useLoginUserMutation } from '../../store/conexion/index.js'
-import { getCookie } from '../utils/index.js'
+import React from "react";
+import { useEffect, useState } from "react";
+import { useLoginUserMutation } from "../../store/conexion/index.js";
+import { getCookie, setCookie } from "../utils/index.js";
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom'
-
-
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [autenticado, setautenticado] = useState(false);
   const [loginUser, { isSuccess }] = useLoginUserMutation();
   const navigation = useNavigate();
   const {
@@ -19,57 +16,62 @@ const Login = () => {
 
   const onSubmit = (data) => {
     loginUser(data);
-  };
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("User has logged in, successfully");
-    navigation("/admin")
-
-    }
-    if (getCookie("authToken")) {
-      setautenticado(true);
+    };
+    useEffect(() => {
+      if (isSuccess) {
+        console.log("ingreso exitoso");
+        navigation("/admin");
     }
  
   }, [isSuccess]);
- 
- 
+
   return (
     <>
-      <div className='h-screen w-100 flex justify-center items-center'>
+      <div className="h-screen w-100 flex justify-center items-center">
         <div className="bg-[url('../../public/bg-login.svg')] h-[785px] w-[400px] relative flex justify-center items-center ">
-       
-             <form onSubmit={handleSubmit(onSubmit)} className='justify-center flex items-center' >
-             <input type="text" className='absolute rounded-3xl flex w-80 bottom-44 h-10 pl-4 bg-[#cbd5e1] ' placeholder='correo Electronico'
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="justify-center flex items-center flex-col"
+          >
+            <input
+              type="text"
+              className="absolute rounded-3xl flex w-80 bottom-44 h-10 pl-4 bg-[#cbd5e1] "
+              placeholder="correo Electronico"
               {...register("email", {
                 required: {
                   value: true,
                   message: "Por favor digitar cédula",
                 },
-              })} />
-                  <span className="text-amber-700">
-              {errors.id?.message && errors.id.message}
+              })}
+            />
+            <span className="text-white flex  shadow-sm">
+              {errors.email?.message && errors.email.message}
             </span>
-               <input type="text" className='absolute rounded-3xl flex w-80 bottom-28 h-10 pl-4 bg-[#cbd5e1] ' placeholder='contraseña'
-               {...register("password", {
+            <input
+              type="text"
+              className="absolute rounded-3xl flex w-80 bottom-28 h-10 pl-4 bg-[#cbd5e1] "
+              placeholder="contraseña"
+              {...register("password", {
                 required: {
                   value: true,
                   message: "Por favor digitar password",
                 },
-              })} />
-               <span className="text-amber-700">
+              })}
+            />
+            <span className="text-white flex  shadow-sm">
               {errors.password?.message && errors.password.message}
             </span>
-               <button type='submit' className='bg-blue-800 bottom-12 absolute rounded-3xl flex w-80 h-8 text-gray-50 text-center justify-center'>ingresar</button>
-             </form>
-       
-
-       
-            
+            <button
+              type="submit"
+              className="bg-blue-800 bottom-12 absolute rounded-3xl flex w-80 h-8 text-gray-50 text-center justify-center"
+            >
+              ingresar
+            </button>
+          </form>
         </div>
-
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

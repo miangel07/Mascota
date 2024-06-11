@@ -1,28 +1,36 @@
-import './App.css'
-import { Route, Routes } from 'react-router-dom'
-import Login from './pages/Login'
-import Admin from './pages/AdministrarMascota.jsx'
-import AgregarMascota from './components/AgregarMascota'
-import Editar from './pages/Editar.jsx'
-import EdiatrMascotaPages from './pages/EditarMascotaPages.jsx'
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Admin from "./pages/AdministrarMascota.jsx";
+import AgregarMascota from "./components/AgregarMascota";
+import Editar from "./pages/Editar.jsx";
+import EdiatrMascotaPages from "./pages/EditarMascotaPages.jsx";
+import ProteccionRuta from "./utils/ProteccionRuta.jsx";
+import { getCookie } from "./utils/index.js";
 
-import './App.css'
-
+import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
+
+
+
+  const token = getCookie("authToken");
+
   
   return (
     <>
-    <Routes>
-    <Route path="/" element={<Login/>} />
-    <Route path="/admin" element={<Admin/>} />
-    <Route path="/agregarMascota" element={<AgregarMascota/>} />
-    <Route path="/ver/:id" element={<Editar/>} />
-    <Route path="/actualizar/:id" element={<EdiatrMascotaPages/>} />
-    </Routes>    
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route element={<ProteccionRuta  activation={token}/>}>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/agregarMascota" element={<AgregarMascota />} />
+          <Route path="/ver/:id" element={<Editar />} />
+          <Route path="/actualizar/:id" element={<EdiatrMascotaPages />} />
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
-
+export default App;

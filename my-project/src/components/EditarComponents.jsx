@@ -62,7 +62,10 @@ const EditarComponents = ({ id }) => {
         images: pestData.images || null,
       });
     }
-  }, [raceData, categoriaData, gendersData, pestData]);
+    if (updateError) {
+      alert("debes selecionar una imagan");
+    }
+  }, [raceData, categoriaData, gendersData, pestData, updateError]);
 
   const {
     register,
@@ -75,8 +78,13 @@ const EditarComponents = ({ id }) => {
   };
 
   const updatePet = async () => {
-    if (!mascota.races || !mascota.category || !mascota.genders) {
-      console.error("Todos los campos deben estar seleccionados.");
+    if (
+      !mascota.races ||
+      !mascota.category ||
+      !mascota.genders ||
+      !mascota.images
+    ) {
+      alert("Todos los campos deben estar seleccionados.");
       return;
     }
 
@@ -107,7 +115,7 @@ const EditarComponents = ({ id }) => {
     return <div>Cargando...</div>;
   }
 
-  if (error || categoriaError || gendersError || raceError || updateError) {
+  if (error || categoriaError || gendersError || raceError) {
     return <div>Error al cargar los datos</div>;
   }
 

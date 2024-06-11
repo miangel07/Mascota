@@ -4,9 +4,13 @@ import gandersModels from "../models/ganders.js";
 export const Listar = async (req, res) => {
     try {
         const gander = await gandersModels.find();
-        return (res.status(200).json(gander))
-    } catch (error) {
-        console.log(error)
+        if (gander) {
+            return (res.status(200).json(gander))
+        }
+        return res.status(200).json("no se listo rorrectamente ")
+        } catch (error) {
+        return res.status(200).json(error)
+    
     }
 }
 
@@ -28,7 +32,7 @@ export const crear = async (req, res) => {
         if (ganderCreate) {
             return (res.status(200).json({ mensage:"genero creado correctamente",ganderCreate}))
         }
-        return (res.status(401).json({ mensage:"genero no se creo correctamente"}))
+        return res.status(401).json({ mensage:"genero no se creo correctamente"})
     } catch (error) {
         return (res.status(500).json(error))
     }
@@ -57,6 +61,4 @@ export const eliminar = async (req, res) => {
         return (res.status(500).json(error))
     }
 }
-
-
 

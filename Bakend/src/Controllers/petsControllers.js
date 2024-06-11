@@ -31,8 +31,11 @@ export const create = async (req, res) => {
         });
 
       const save=  await pet.save();
-
-        return res.status(201).json({ message: 'Mascota creada correctamente', save });
+        if(pet) {
+          
+          return res.status(201).json({ message: 'Mascota creada correctamente', save });
+        }
+        return res.status(401).json({ message: "No se creo correctamente" });
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

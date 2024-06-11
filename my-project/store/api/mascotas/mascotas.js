@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getCookie, setCookie } from "../../../src/utils";
+import { getCookie, setCookie } from "../../../src/utils/index.js";
 // importo de createApi usando reduxjs y tambien importo las cookie donde las cookie insertan tren y remueve
 export const mascotasApi = createApi({
   // este es el nombre del conde va a traer lo de la collection
@@ -9,8 +9,8 @@ export const mascotasApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     // acomoda el herdes para que resiba json
     headers: {
-    "Content-Type": "application/json",
-      "Content-Type":" multipart/form-data"
+      "Content-Type": "application/json",
+      "Content-Type": " multipart/form-data",
     },
   }),
   // esta es el objeto del enpoit  donde unsa mutation de la libreria y hace las funciones del crud
@@ -22,7 +22,9 @@ export const mascotasApi = createApi({
         url: `pets/crear`,
         method: "POST",
         body: data,
-        
+        headers: {
+          token: `${getCookie("authToken")}`,
+        },
       }),
       // transforma la respuesta de la api y al envia el token que probiene del api a la cookie
       transformResponse(baseQueryReturnValue) {
@@ -40,8 +42,7 @@ export const mascotasApi = createApi({
         // esta funcion  getCookie obtiene la cookie donde se obtiene el token y se inserta en la cabecera
         // y esta funcion biene  exporta de ../../../src/utils
         headers: {
-          
-          Authorization: `Bearer ${getCookie("authToken")}`,
+          token: `${getCookie("authToken")}`,
         },
       }),
     }),
@@ -51,9 +52,9 @@ export const mascotasApi = createApi({
         method: "PUT",
         body: data,
         headers: {
-          Authorization: `Bearer ${getCookie("authToken")}`,
+          token: `${getCookie("authToken")}`,
         },
-      })
+      }),
     }),
 
     getPestById: build.query({
@@ -61,7 +62,7 @@ export const mascotasApi = createApi({
         url: `pets/listar/${id}`,
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getCookie("authToken")}`,
+          token: `${getCookie("authToken")}`,
         },
       }),
     }),
@@ -70,15 +71,10 @@ export const mascotasApi = createApi({
       query: (id) => ({
         url: `pets/eliminar/${id}`,
         method: "DELETE",
-
         headers: {
-          Authorization: `Bearer ${getCookie("authToken")}`,
+          token: `${getCookie("authToken")}`,
         },
       }),
-
-      transformResponse(baseQueryReturnValue) {
-        setCookie("authToken", baseQueryReturnValue.token, 30);
-      },
     }),
   }),
 });

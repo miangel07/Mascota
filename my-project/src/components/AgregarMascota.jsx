@@ -5,6 +5,7 @@ import { useGetCategoriaQuery } from "../../store/api/categoria/categoria.js";
 import { useGetgendersQuery } from "../../store/api/genders/genders.js";
 import { useGetRaceQuery } from "../../store/api/race/reace.js";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../utils/index.js";
 
 const Agregar = () => {
   const navegacion = useNavigate();
@@ -41,8 +42,8 @@ const Agregar = () => {
 
   const creatPest = async () => {
     // Validar que race, category y genders no estén vacíos
-    if (!race || !category || !denders) {
-      console.error("Todos los campos deben estar seleccionados.");
+    if (!race || !category || !denders||!name) {
+      alert("Todos los campos deben estar seleccionados.");
       return;
     }
 
@@ -57,9 +58,12 @@ const Agregar = () => {
       const response = await fetch("http://localhost:3000/api/pets/registrar", {
         method: "post",
         body: formData,
+        headers: {
+          token: `${getCookie("authToken")}`,
+        },
       }).then((res) => res.json());
 
-      navegacion("/admin")
+      navegacion("/admin");
       console.log(response);
     } catch (error) {
       console.error("Error al enviar los datos:", error);
@@ -69,6 +73,7 @@ const Agregar = () => {
   if (isCategoriaLoading || isGendersLoading || isRaceLoading) {
     return <div>Cargando...</div>;
   }
+
   if (categoriaError || gendersError || raceError) {
     return <div>Error al cargar los datos</div>;
   }
@@ -88,14 +93,18 @@ const Agregar = () => {
           onSubmit={handleSubmit(creatPest)}
           className="flex justify-center relative items-center mt-72"
         >
-          <div className="flex justify-center items-center flex-col space-y-8">
+          <div className="flex justify-center items-center flex-col space-y-6">
             <input
               type="text"
               placeholder="Nombre de la mascota"
               className="rounded-3xl flex w-80 h-10 pl-4 bg-[#cbd5e1]"
               value={name}
+
               onChange={(e) => setName(e.target.value)}
             />
+            <span className="text-amber-700">
+              {errors.name?.message && errors.name.message}
+            </span>
             <select
               placeholder="Seleccione la raza de su mascota"
               className="rounded-3xl flex w-80 h-10 pl-4 bg-[#cbd5e1]"

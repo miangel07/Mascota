@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="principal">Documentación de la api Mascota</h1>
+    <div class="container">
+      <br />
+      <h1 class="titulo">RF01 requerimiento iniciar sesion</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Iniciar Sesion</td>
+              <td>
+                <p>
+                  en este apartado el sistema dejara entrar solo si el usuario
+                  esta registrado validando sus credenciales
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/auth/login</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>
+                Esta funcion permite la validar las credenciales del usuario en
+                la base de datos
+              </td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>POST</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrador,invitado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>
+                json: { "email" :"osorio@gmail.com",<br />
+                "password":"123"<br />
+                }
+              </td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({ "message": "Inicio de sesión
+                exitoso", "token": "#####" }) <br /><br />
+                Incorrecto: res.status(400).json({ message: "Contraseña
+                incorrecta" }) <br /><br />
+                Error: res.status(500).json({error: "error"});
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <h1 class="titulo">RF02 listar Mascotas</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Listar Mascota</td>
+              <td>
+                <p>
+                  en este apartado el sistema listara todas las mascotas
+                  disponibles en el momento
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/pets/listar</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>
+                Esta funcion lista todas las mascotas que se encuentran
+                actualmente en la base de datos
+              </td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>GET</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrador,invitado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({ "_id":
+                "666525ce33b5527a887bc933",<br />
+                "name": "sachoaaa",<br />
+                "races": {<br />
+                "_id": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "name": "grande"<br />
+                }, "images": "AnotaciÃ³n 2023-10-31 111829.png"<br />
+                },) <br />
+                Incorrecto: res.status(401).json({ message: "No se listó
+                correctamente" }); <br /><br />
+                Error: res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <h1 class="titulo">RF03 añadir mascota</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>añadir mascota</td>
+              <td>
+                <p>
+                  en este apartado el sistema permite registrar un mascota y la
+                  almacena directemente a la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/pets/registrar</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>
+                esta funcion permitira registrar una mascota por medio de
+                multipart Form
+              </td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>POST</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>
+                name:sacha,<br />
+                races:_id:666522a3bd2d1b1a7b6fe4c2,<br />
+                category:66652252bd2d1b1a7b6fe4bc,<br />
+                genders:66652400fa5a832d2673a8dc,<br />
+                images:AnotaciÃ³n 2023-10-31 111829.png<br />
+              </td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({<br />
+
+                "message": "Mascota creada correctamente",<br />
+                "save": {<br />
+                "name": "sacha",<br />
+                "races": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "category": "66652252bd2d1b1a7b6fe4bc",<br />
+                "genders": "66652400fa5a832d2673a8dc",<br />
+                "images": "certificado curso de ingles 2.png",<br />
+                "_id": "6667be7420311d4be6266668",<br />
+                "__v": 0<br />
+                }<br />
+                }) <br />
+                Incorrecto: res.status(401).json({ message: "No se creo
+                correctamente" }); <br /><br />
+                Error: res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <h1 class="titulo">RF04 actualizar mascota</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>actualizar mascota</td>
+              <td>
+                <p>
+                  en este apartado el sistema actualizara una mascota existente
+                  en la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/pets/actualizar/:id</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>
+                esta funcion permitira actualizar una mascota segun el id en la
+                base de datos
+              </td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>PUT</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>
+                name:sacha,<br />
+                races:_id:666522a3bd2d1b1a7b6fe4c2,<br />
+                category:66652252bd2d1b1a7b6fe4bc,<br />
+                genders:66652400fa5a832d2673a8dc,<br />
+                images:AnotaciÃ³n 2023-10-31 111829.png<br />
+              </td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({<br />
+
+                "message": "Mascota actualizada correctamente",<br />
+                "save": {<br />
+                "name": "sacha",<br />
+                "races": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "category": "66652252bd2d1b1a7b6fe4bc",<br />
+                "genders": "66652400fa5a832d2673a8dc",<br />
+                "images": "certificado curso de ingles 2.png",<br />
+                "_id": "6667be7420311d4be6266668",<br />
+                "__v": 0<br />
+                }<br />
+                }) <br />
+                Incorrecto: res.status(401).json({ message: "Mascota no se
+                actualizo correctamente" }); <br /><br />
+                Error: res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <h1 class="titulo">RF05 listar por ID mascota</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>listar por id mascota</td>
+              <td>
+                <p>
+                  en este apartado el sistema permite listar por el id la
+                  mascota segun la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/pets/listar/:id</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>
+                esta funcion permitira actualizar una mascota segun el id en la
+                base de datos
+              </td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>GET</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({ "_id":
+                "6667be7420311d4be6266668",<br />
+                "name": "sacho",<br />
+                "races": {<br />
+                "_id": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "name": "grande"<br />
+                },<br />
+                "category": {<br />
+                "_id": "66652252bd2d1b1a7b6fe4bc",<br />
+                "name": "pequeña"<br />
+                },<br />
+                "genders": {<br />
+                "_id": "66652400fa5a832d2673a8dc",<br />
+                "name": "pincher"<br />
+                },<br />
+                "images": "certificado curso de ingles 2.png",<br />
+                "__v": 0<br />
+                }) <br />
+                Incorrecto: res.status(401).json({ message: "Mascota no
+                encontrada" }); <br /><br />
+                Error: return res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br />
+      <h1 class="titulo">RF06 Eliminar Mascota</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>eliminar Mascota</td>
+              <td>
+                <p>
+                  en este apartado el sistema permite eliminar por el id la
+                  mascota segun la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/pets/eliminar/:id</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>
+                esta funcion permitira eliminar una mascota segun el id en la
+                base de datos
+              </td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>DELATE</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({<br />
+                "message": "mascota eliminada correctamente",<br />
+                "petDelete": {<br />
+                "_id": "6667be7420311d4be6266668",<br />
+                "name": "sacho",<br />
+                "races": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "category": "66652252bd2d1b1a7b6fe4bc",<br />
+                "genders": "66652400fa5a832d2673a8dc",<br />
+                "images": "certificado curso de ingles 2.png",<br />
+                "__v": 0<br />
+                }<br />
+                }) <br />
+                Incorrecto: res.status(401).json({ message: "Mascota no
+                encontrada" }); <br /><br />
+                Error: return res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <h1 class="titulo">RAZAS</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Listar Razas</td>
+              <td>
+                <p>
+                  en este apartado se podran listar todas las razas que esten
+                  registradas en la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/raza/listar</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>esta funcion permitira listar una raza</td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>GET</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado,invitado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({<br />
+                "_id": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "name": "grande",<br />
+                "__v": 0<br />
+                },<br />
+                {<br />
+                "_id": "66667ef9e4acec7f78b305a3",<br />
+                "name": "pequeña",<br />
+                "__v": 0<br />
+                }) <br />
+                Incorrecto: res.status(200).json("no se listo rorrectamente
+                ");<br />
+                Error: return res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h1 class="titulo">Crear Raza</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Crear Razas</td>
+              <td>
+                <p>
+                  en este apartado el sistema permite crear una raza en la base
+                  de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/raza/registrar</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>esta funcion permitira crear una raza</td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>POST</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado,invitado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>
+                {<br />
+                "name":"pincher"}
+                <br />
+              </td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({ "message": "raza creada
+                correctamente",<br />
+                "petCreate": {<br />
+                "_id": "666522a3bd2d1b1a7b6fe4c2",<br />
+                "name": "pincher",<br />
+                "__v": 0<br />
+                }<br />
+                }) <br />
+                Incorrecto:res.status(401).json({ mensage:"no se creo
+                correctamente"});<br />
+                Error: return res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <h1 class="titulo">Genero</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>listar Genero</td>
+              <td>
+                <p>
+                  en este apartado el sistema permite listar  genero 
+                  de  la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/genero/listar</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>esta funcion permitira lsitar Genero</td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>GET</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado,invitado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>
+               null
+              </td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({
+                    "_id": "66652400fa5a832d2673a8dc",<br />
+                    "name": "macho",<br />
+                    "__v": 0<br />
+                 }) <br />
+                Incorrecto:res.status(401).json({ mensage:"no se listo
+                correctamente"});<br />
+                Error: return res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h1 class="titulo"> Crear Genero</h1>
+      <div class="table-container">
+        <table>
+          <thead>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>listar Genero</td>
+              <td>
+                <p>
+                  en este apartado el sistema permite listar  genero 
+                  de  la base de datos
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>http://localhost:3000/api/genero/registrar</td>
+            </tr>
+            <tr>
+              <td>Descripcion</td>
+              <td>esta funcion permitira registrar un  Genero</td>
+            </tr>
+            <tr>
+              <td>Verbo HTTP</td>
+              <td>POST</td>
+            </tr>
+            <tr>
+              <td>Header</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Usuario</td>
+              <td>Administrado,invitado</td>
+            </tr>
+            <tr>
+              <td>Peticion Body</td>
+              <td>
+               {<br />
+                "name":"macho"}
+              </td>
+            </tr>
+            <tr>
+              <td>Respuesta Json</td>
+              <td>
+                Correcto: status:200.json({
+                    "message": "genero creado correctamente",<br />
+                    "petCreate": {<br />
+                    "_id": "66652400fa5a832d2673a8dc",<br />
+                    "name": "macho",<br />
+                    "__v": 0<br />
+                    }<br />
+    
+                }) <br />
+                Incorrecto:res.status(401).json({ mensage:"no se listo
+                correctamente"});<br />
+                Error: return res.status(500).json({ message: error.message });
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
