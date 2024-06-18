@@ -16,14 +16,14 @@ const Login = () => {
 
   const onSubmit = (data) => {
     loginUser(data);
-    };
-    useEffect(() => {
-      if (isSuccess) {
-        console.log("ingreso exitoso");
-        navigation("/admin");
-    }
- 
-  }, [isSuccess]);
+  };
+
+  if (isSuccess) {
+    console.log("ingreso exitoso");
+    navigation("/admin");
+  }
+
+
 
   return (
     <>

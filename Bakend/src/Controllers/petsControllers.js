@@ -94,7 +94,17 @@ export const listarPorId = async (req, res) => {
       return res.status(500).json({ message: error.message });
     }
   };
-  
+  export const cantidadPets=async(req,res)=>{
+    try {
+      const pets = await petsModels.find().countDocuments();
+      if (pets) {
+        return res.status(200).json({cantida:pets});
+      }
+      return res.status(401).json({ message: "No se listó correctamente" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 
 
 

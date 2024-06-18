@@ -6,18 +6,19 @@ import {
 } from "../../store/api/mascotas/mascotas";
 import { useNavigate } from "react-router-dom";
 import { removeCookie } from "../utils";
+import { useGetCantidadQuery } from "../../store/api/categoria/categoria";
 
 const Admin = () => {
-  const navegacion = useNavigate();
   const { data, error, isLoading, refetch } = useGetPestsQuery();
+  const { data: dataCantidad, error: errorCantidad, isLoading: isLoandCantidad } = useGetCantidadQuery()
   const [deletePet] =
     useDeletePestMutation();
 
+  const navegacion = useNavigate();
   const cerrarSesion = () => {
     removeCookie("authToken");
     navegacion("/");
   };
-
   const handleDelete = async (id) => {
     try {
       await deletePet(id).unwrap();
@@ -28,20 +29,36 @@ const Admin = () => {
     }
   };
 
-  if (isLoading) return <div>Cargando...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!data) return <div>No se encontraron mascotas.</div>;
+  if (isLoading || isLoandCantidad) return <div>Cargando...</div>;
+  if (error || errorCantidad) return <div>Error: {error.message}</div>;
+  if (!data || !dataCantidad) return <div>No se encontraron mascotas.</div>;
 
   return (
     <div className="h-screen w-100 flex justify-center items-center">
       <div className="flex absolute bg-[url('../../public/bg.svg')] w-[400px] h-[785px] justify-center items-center flex-col">
         <div className="flex absolute flex-row text-white top-10 gap-10">
           <p>Administrar Mascotas</p>
+
           <div
             onClick={() => cerrarSesion()}
             className="bg-[url('../../public/btn-close.svg')] w-[34px] h-[34px] flex absolute left-52 cursor-pointer"
           ></div>
         </div>
+        <div className="flex flex-row gap-2">
+          <p className="text-white">categorias</p>
+          {dataCantidad.map((items) => (
+            <ul key={items._id} className="flex flex-row gap-2">
+              <p className="text-rose-400">{items._id}</p>  <p className="text-white">{items.cantidad}</p>
+
+            </ul>
+          ))}
+
+        </div>
+
+
+
+
+
         <div className="flex absolute top-24">
           <Link to={"/agregarMascota"}>
             <img
@@ -58,9 +75,8 @@ const Admin = () => {
               <div className="flex w-1/3">
                 <img
                   className="h-14 w-16 rounded-full flex"
-                  src={`${import.meta.env.VITE_BASE_URL_IMG}/img/${
-                    mascota.images
-                  }`}
+                  src={`${import.meta.env.VITE_BASE_URL_IMG}/img/${mascota.images
+                    }`}
                   alt={`Mascota ${mascota.name}`}
                 />
               </div>

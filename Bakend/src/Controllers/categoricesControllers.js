@@ -3,6 +3,7 @@ import categoriaModels from "../models/Categories.js";
 export const list = async (req, res) => {
     try {
         const categorie = await categoriaModels.find();
+       
         return (res.status(200).json(categorie))
     } catch (error) {
         return (res.status(500).json(error))
@@ -55,6 +56,22 @@ export const listId = async (req, res) => {
     } catch (error) {
         return (res.status(500).json(error))
     }
+}
+export const cantidad =async(req,res)=>{
+    try {
+        const categoriCantidad = await categoriaModels.aggregate([
+            {
+                $group:{
+                    _id:"$name",
+                    cantidad:{$sum:1}
+                }
+            }
+        ]);
+        return (res.status(200).json(categoriCantidad))
+    } catch (error) {
+        return(res.status(200).json(error))
+    }
+
 }
 
 

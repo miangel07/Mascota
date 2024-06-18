@@ -15,9 +15,18 @@ export const categoria = createApi({
                 method: "GET",
                 headers: {
                     token: `${getCookie("authToken")}`,
-                  },
+                },
             }),
         }),
+        getCantidad: build.query({
+            query: () => ({
+                url: `categoria/cantidad`,
+                method: "GET",
+                headers: {
+                    token: `${getCookie("authToken")}`,
+                },
+            }),
+        })
     }),
 })
-export const {useGetCategoriaQuery}=categoria
+export const { useGetCategoriaQuery, useGetCantidadQuery } = categoria
