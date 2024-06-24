@@ -12,7 +12,7 @@ import {
 
 const EditarComponents = ({ id }) => {
   const navigate = useNavigate();
-  const [updatePest, { isLoading: isUpdating, error: updateError }] =
+  const [updatePest, { isLoading: isUpdating, error: updateError , }] =
     useUpdatePestMutation();
 
   const { data: pestData, error, isLoading } = useGetPestByIdQuery(id);
@@ -85,6 +85,7 @@ const EditarComponents = ({ id }) => {
       !mascota.images
     ) {
       alert("Todos los campos deben estar seleccionados.");
+      
       return;
     }
 

@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [loginUser, { isSuccess }] = useLoginUserMutation();
+  const [loginUser, { isSuccess, error, status }] = useLoginUserMutation();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigation = useNavigate();
   const {
     handleSubmit,
@@ -18,11 +19,15 @@ const Login = () => {
     loginUser(data);
   };
 
-  if (isSuccess) {
-    console.log("ingreso exitoso");
-    navigation("/admin");
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      navigation("/admin");
 
+      console.log("Ingreso exitoso");
+    }
+  }, [isSuccess]);
+
+  const errorMessage = error ? error.data.message : "";
 
 
   return (
@@ -60,6 +65,8 @@ const Login = () => {
             />
             <span className="text-white flex  shadow-sm">
               {errors.password?.message && errors.password.message}
+              {errorMessage}
+
             </span>
             <button
               type="submit"

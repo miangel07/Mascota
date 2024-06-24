@@ -42,7 +42,7 @@ const Agregar = () => {
 
   const creatPest = async () => {
     // Validar que race, category y genders no estén vacíos
-    if (!race || !category || !denders||!name) {
+    if (!race || !category || !denders || !name) {
       alert("Todos los campos deben estar seleccionados.");
       return;
     }
@@ -62,7 +62,7 @@ const Agregar = () => {
           token: `${getCookie("authToken")}`,
         },
       }).then((res) => res.json());
-
+      alert(response.message);
       navegacion("/admin");
       console.log(response);
     } catch (error) {
@@ -99,7 +99,6 @@ const Agregar = () => {
               placeholder="Nombre de la mascota"
               className="rounded-3xl flex w-80 h-10 pl-4 bg-[#cbd5e1]"
               value={name}
-
               onChange={(e) => setName(e.target.value)}
             />
             <span className="text-amber-700">

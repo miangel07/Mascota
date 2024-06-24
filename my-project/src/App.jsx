@@ -6,23 +6,17 @@ import AgregarMascota from "./components/AgregarMascota";
 import Editar from "./pages/Editar.jsx";
 import EdiatrMascotaPages from "./pages/EditarMascotaPages.jsx";
 import ProteccionRuta from "./utils/ProteccionRuta.jsx";
-import { getCookie } from "./utils/index.js";
 
 import "./App.css";
-import { useEffect, useState } from "react";
 
 function App() {
 
 
-
-  const token = getCookie("authToken");
-
-  
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route element={<ProteccionRuta  activation={token}/>}>
+        <Route element={<ProteccionRuta />}>
           <Route path="/admin" element={<Admin />} />
           <Route path="/agregarMascota" element={<AgregarMascota />} />
           <Route path="/ver/:id" element={<Editar />} />

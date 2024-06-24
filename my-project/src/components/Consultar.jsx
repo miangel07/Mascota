@@ -7,7 +7,7 @@ const Consultar = ({id}) => {
   const { data, error, isLoading } = useGetPestByIdQuery(id);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>cargando...</p>;
   }
   if (error) {
     return <p>Error: {error.message}</p>;

@@ -28,6 +28,9 @@ const Admin = () => {
       console.error("NO SE ELIMINO CON EXITO LA MASCOTA", error);
     }
   };
+  useEffect(() => {
+    refetch()
+  },[])
 
   if (isLoading || isLoandCantidad) return <div>Cargando...</div>;
   if (error || errorCantidad) return <div>Error: {error.message}</div>;
